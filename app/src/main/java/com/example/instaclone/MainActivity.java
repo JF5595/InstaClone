@@ -1,5 +1,6 @@
 package com.example.instaclone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +14,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
@@ -42,20 +46,27 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSubmit;
     private File photoFile;
     public String photoFileName = "photo.jpg";
-
-
+    private ProgressBar pb;
+    private Button btnLogout;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         etDescription = findViewById(R.id.etDescription);
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnLogout = findViewById(R.id.btnLogout);
+        pb =  (ProgressBar) findViewById(R.id.pbLoading);
+        toolbar = findViewById(R.id.main_toolbar);
+
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +88,53 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"There is no image!",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                pb.setVisibility(ProgressBar.VISIBLE);
                 savePost(description,currentUser, photoFile);
+                pb.setVisibility(ProgressBar.INVISIBLE);
+
             }
         });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                if(ParseUser.getCurrentUser() == null){
+                    goLoginActivity();
+                }
+
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.nav_inbox){
+            Toast.makeText(this,"Clicked Inbox icon",Toast.LENGTH_SHORT).show();
+        }
+        else if(item.getItemId() == R.id.nav_setting){
+            Toast.makeText(this,"Clicked Settings icon",Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void goLoginActivity() {
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void launchCamera() {
@@ -132,9 +186,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Return the file target for the photo based on filename
+
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
+
     }
     
     private void savePost(String description, ParseUser currentUser, File photoFile) {
@@ -154,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 ivPostImage.setImageResource(0);
             }
         });
+
     }
 
     private void queryPosts() {
@@ -172,4 +229,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
