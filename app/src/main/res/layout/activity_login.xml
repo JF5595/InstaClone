@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="22dp"
     android:orientation="vertical"
-    tools:context=".LoginActivity" >
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/ivInstalogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="center"
+        app:srcCompat="@drawable/nav_logo_whiteout" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -15,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Username"/>
+        android:hint="Username" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -24,26 +31,25 @@
         android:layout_weight="1"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword"
-        />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:backgroundTint="#2196F3"
         android:text="Login"
-        android:textColor="@color/white"
-        android:backgroundTint="#2196F3" />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:backgroundTint="#24B529"
         android:text="Sign Up"
-        android:textColor="@color/white"
-        android:backgroundTint="#24B529" />
+        android:textColor="@color/white" />
 
 
 </LinearLayout>
