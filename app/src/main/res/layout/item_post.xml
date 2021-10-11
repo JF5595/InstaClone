@@ -16,6 +16,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="SomeGuy" />
 
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TextView" />
+
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
@@ -31,4 +38,5 @@
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         tools:text="SomeGuy's stuff" />
+
 </LinearLayout>

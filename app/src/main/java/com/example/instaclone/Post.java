@@ -5,6 +5,8 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.Date;
+
 @ParseClassName("Post")
 public class Post extends ParseObject {
 
@@ -35,5 +37,11 @@ public class Post extends ParseObject {
 
     public void setUser(ParseUser user){
         put(KEY_USER, user);
+    }
+
+    public Date getDate() {return getDate(KEY_CREATED_KEY);}
+
+    public  void setDate(Date date){
+        put(KEY_CREATED_KEY, date);
     }
 }
