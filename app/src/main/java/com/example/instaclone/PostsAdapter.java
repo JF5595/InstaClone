@@ -69,4 +69,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             }
         }
     }
+
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+
+    }
+
+    public void addAll(List<Post> list) {
+        posts.addAll(list);
+        notifyDataSetChanged();
+
+    }
 }
